@@ -1,4 +1,34 @@
-# 🧠 Astor Butler — Telegram AI Booking & Loyalty Assistant
+# Astor Butler Legacy
+
+Историческая реализация и источник продуктовых сценариев/тона общения.
+Активный FSM-first runtime находится в [Astor Butler MVP](https://github.com/astor-hospitality/Astor_Butler_MVP),
+гостевой агент — в [Astor Concierge](https://github.com/astor-hospitality/Astor_Concierge).
+Legacy не является текущей целью деплоя Astor; перенос кода и данных требует
+отдельного ревью. Список возможностей ниже — историческое описание, не
+подтверждение работающих платёжных интеграций или production-приёмки.
+
+## Подготовка к релизу — 06.10.2026
+
+Фактический стек по `pom.xml` и CI: Java 17, Spring Boot 3.2.5, Maven.
+Сборка через Gradle в текущем репозитории не подтверждена.
+
+```bash
+./mvnw test
+./mvnw package
+```
+
+Эти команды требуют Java 17; тесты и запуск могут требовать настройки внешних
+сервисов. В этой документационной сессии сборка Legacy не запускалась.
+
+- [ ] Точный commit прошёл [CI](https://github.com/michaelwelly/Astor_Butler_Legacy/actions); история CI не заменяет новый прогон.
+- [ ] Release notes явно указывают legacy/reference и ограничения, без обещания актуальной функциональности MVP.
+- [ ] Проверены права/лицензии переносимых фрагментов; секреты, дампы и гостевые данные не попадают в assets.
+- [ ] Не запускать старый бот с production-токеном действующего Butler.
+- [ ] Отдельный стенд и отдельное разрешение нужны перед любым развёртыванием.
+
+GitHub tag/release не равен production deployment. Старый workflow на push в
+`main` публикует Docker-образ: документацию меняем через PR, без автоматического
+мержа и без запуска этого workflow вручную.
 
 Astor Butler is an intelligent assistant designed for HoReCa businesses (restaurants, cafes, clubs) to manage bookings, orders, payments, and customer loyalty — entirely through Telegram and AI.
 
@@ -10,8 +40,8 @@ Astor Butler is an intelligent assistant designed for HoReCa businesses (restaur
 - 📆 Table bookings with slot management and time control
 - 🛍️ Merch and service ordering
 - ❤️ Charity donations as a part of the ordering system
-- 💰 Telegram Stars loyalty system (internal virtual currency)
-- 💳 Real-time payments (Tinkoff, Sber, YooKassa integrations)
+- 💰 Historical Telegram Stars/payment scenarios (live operation not verified)
+- 💳 Payment integration groundwork (provider acceptance must be checked separately)
 - 📊 Monitoring & observability: Redis, Kafka, Grafana ready
 - 🔒 Secure role-based access: Guest / Manager / Admin
 - 🛡️ Phone-based Telegram Login & phone number verification
@@ -25,7 +55,7 @@ Astor Butler is an intelligent assistant designed for HoReCa businesses (restaur
 - Docker, docker-compose
 - Kafka, Grafana, Prometheus
 - Telegram Bot API (via TelegramLongPollingBot)
-- Gradle & Maven compatibility
+- Maven (`pom.xml`, Maven wrapper)
 
 ---
 
@@ -57,8 +87,8 @@ Designed to evolve into a **microservice architecture**, with event-driven commu
 - 📆 Бронирование столов по слотам
 - 🛍️ Заказ мерча и дополнительных услуг
 - ❤️ Возможность пожертвований прямо через бота
-- 💰 Внутренняя валюта — Telegram Stars
-- 💳 Онлайн-оплата (Тинькофф, Сбер, ЮKassa)
+- 💰 Исторические сценарии Telegram Stars; это не собственная внутренняя валюта проекта
+- 💳 Платёжные сценарии требуют отдельной проверки провайдера и приёмки
 - 📊 Наблюдаемость через Redis / Kafka / Grafana
 - 🔐 Роли пользователей: гость, менеджер, админ
 - 📲 Вход по Telegram и привязка номера
@@ -67,11 +97,11 @@ Designed to evolve into a **microservice architecture**, with event-driven commu
 
 ### 🔧 Технологии:
 
-- Java 21 + Spring Boot
+- Java 17 + Spring Boot 3.2.5 (по `pom.xml`)
 - PostgreSQL, Redis
 - Docker / Compose
 - Kafka + Grafana / Prometheus
 - Telegram Bot API
-- Сборка через Gradle
+- Сборка через Maven
 
 ---
